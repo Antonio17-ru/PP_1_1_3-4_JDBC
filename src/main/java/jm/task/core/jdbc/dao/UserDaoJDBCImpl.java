@@ -2,6 +2,7 @@ package jm.task.core.jdbc.dao;
 
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -55,7 +56,7 @@ public class UserDaoJDBCImpl implements UserDao {
         try {
             PreparedStatement preparedStatement =
                     Util.connection.prepareStatement("DELETE FROM USER WHERE id=?");
-            preparedStatement.setLong (1, id);
+            preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -68,7 +69,7 @@ public class UserDaoJDBCImpl implements UserDao {
             Statement statement = Util.connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT id, name, lastName, age FROM USER");
 
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 User user = new User();
                 user.setId(resultSet.getLong("id"));
                 user.setName(resultSet.getString("name"));

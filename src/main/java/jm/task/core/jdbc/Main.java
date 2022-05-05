@@ -1,24 +1,29 @@
 package jm.task.core.jdbc;
 
+import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.service.UserService;
 import jm.task.core.jdbc.service.UserServiceImpl;
+
+import java.util.Arrays;
+import java.util.List;
 
 
 public class Main {
     public static void main(String[] args) {
 
-        UserService us = new UserServiceImpl();
+        UserServiceImpl userService = new UserServiceImpl();
+        userService.dropUsersTable();
+        userService.createUsersTable();
 
-        us.createUsersTable();
+        List<User> list = Arrays.asList(new User("Jessy", "Pinkman", (byte) 29)
+                , new User("Walter", "White", (byte) 53)
+                , new User("Soul", "Goodman", (byte) 49)
+                , new User("Gustavo", "Frink", (byte) 50));
+        list.forEach((x) -> userService.saveUser(x.getName(), x.getLastName(), x.getAge()));
 
-        us.saveUser("Anton", "Elchin", (byte) 30);
-        us.saveUser("Kirill", "Isa", (byte) 11);
-        us.saveUser("Ivan", "Stone", (byte) 32);
-        us.saveUser("Irina", "Polle", (byte) 38);
+        userService.getAllUsers().forEach(System.out::println);
 
-        us.removeUserById(2);
-        us.getAllUsers();
-        us.cleanUsersTable();
-        us.dropUsersTable();
+        userService.cleanUsersTable();
+        userService.dropUsersTable();
     }
 }
