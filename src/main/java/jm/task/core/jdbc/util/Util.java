@@ -9,12 +9,13 @@ public class Util {
     private static final String USERNAME = "root";
     private static final String PASSWORD = "Fs1-fsk7L-3nvK";
     public static Connection connection;
-    static {
+    public static Connection getConnection(){
         try {
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return connection;
     }
 
 }
